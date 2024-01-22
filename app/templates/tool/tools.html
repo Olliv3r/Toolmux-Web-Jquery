@@ -1,0 +1,58 @@
+{% if tools %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Autor</th>
+      <th scope="col">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for tool in tools %}
+    <tr>
+      <td>{{ tool.id }}</td>
+      <td>{{ tool.name }}</td>
+      <td>{{ tool.author }}</td>
+      <td>
+        <div class="dropdown d-md-none">
+          <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" role="button" data-view-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalVisualizar">Visualizar</a>
+            </li>
+            <li>
+              <a class="dropdown-item" role="button" data-update-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalAtualizar">Atualizar
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" role="button" data-delete-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalApagar">Apagar</a>
+              </li>
+          </ul>
+        </div>
+
+  	    <div class="d-none d-md-block">
+          <a class="btn btn-sm btn-outline-primary" role="button" data-view-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalVisualizar">Visualizar</a>
+  	      <a class="btn btn-sm btn-outline-warning" role="button" data-update-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalAtualizar">Atualizar</a>
+  	      <a class="btn btn-sm btn-outline-danger" role="button" data-delete-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalApagar">Apagar</a>
+  	    </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<nav aria-label="pagination-tools">
+  <ul class="pagination pagination-sm justify-content-around">
+    <li class="page-item{% if not prev_url %} disabled{% endif %}">
+<a class="page-link" role="button" data-page-prev='{{ prev_url }}'>Anterior</a>
+    </li>
+    <li class="page-item{% if not next_url %} disabled{% endif %}">
+<a class="page-link" role="button" data-page-next='{{ next_url }}'>Próxima</a>
+    </li>
+  </ul>
+</nav>
+{% else %}
+<p class="light">Nenhuma ferramenta</p>
+{% endif %}

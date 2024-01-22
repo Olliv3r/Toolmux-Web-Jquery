@@ -1,0 +1,15 @@
+header {
+  margin-bottom: 16px !important;
+}
+.messages {
+  margin-bottom: 16px;
+}
+.rodape {
+  height: 60px;
+  margin-top: 10px;
+}
+.rodape p {
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 60px;
+}

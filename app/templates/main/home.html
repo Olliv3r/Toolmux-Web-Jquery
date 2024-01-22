@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="d-flex justify-content-between mb-3">
+      <h2>Ferramentas</h2>
+      <button role="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalAdicionar">Adicionar</button>
+    </div>
+    <p id="message"></p>
+    <div class="mb-3">
+      <input type="text" class="form-control" id="search_text" placeholder="Pesquisar" required>
+    </div>
+    <div id="tools"></div>
+    
+    <!-- Modal adicionar -->
+    <div class="modal fade" id="modalAdicionar" tabindex="-1" aria-labelledby="modalAdicionarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAdicionarLabelLabel">Adicionar</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="" method="post" id="add-form" novalidate>
+              <div class="row">
+			    <div class="mb-3 col-6">
+				  <label for="name" class="form-label">Nome <span class="text-danger fw-bold">*</span></label>
+				  <input type="text" class="form-control" id="name" placeholder="Ex: Data Social" required>
+			    </div>
+
+			    <div class="mb-3 col-6">
+				  <label for="author" class="form-label">Autor <span class="text-danger fw-bold">*</span></label>
+				  <input type="text" class="form-control" id="author" placeholder="Ex: Oliver Silva" required>
+			    </div>
+			    
+			    <div class="mb-3 col-6">
+				  <label for="alias" class="form-label">Apelido <span class="text-danger fw-bold">*</span></label>
+				  <input type="text" class="form-control" id="alias" placeholder="Ex: DataSocial" required>
+			    </div>
+			    
+			    <div class="mb-3 col-6">
+   				  <label for="custom_alias" class="form-label">Apelido customizado</label>
+   				  <input type="text" class="form-control" id="custom_alias" placeholder="Ex: datasocial">
+   			    </div>
+   			    
+   			    <div class="mb-3 col-6">
+   				  <label for="name_repo" class="form-label">Nome do repositório</label>
+   				  <input type="text" class="form-control" id="name_repo" placeholder="Ex: DataSocial">
+   			    </div>
+
+   			    <div class="mb-3 col-6">
+   				  <label for="dependencies" class="form-label">Dependências</label>
+   				  <input type="text" class="form-control" id="dependencies" placeholder="Ex: proot git">
+   			    </div>
+   			    
+   			    <div class="mb-3 col-12">
+   				  <label for="link" class="form-label">Link do repositório</label>
+   				  <input type="url" class="form-control" id="link" placeholder="Ex: https://github.com/Olliv3r/DataSocial">
+   			    </div>
+
+   			    <div class="mb-3 col-12">
+   			      <label class="form-label">Tipo de instalação <span class="text-danger fw-bold">*</span></label>
+				  <select class="form-select" id="type_install" aria-label="Tipos de instalação">
+				  </select>
+   			    </div>
+   			    
+   			    <div class="mb-3 col-12">
+      			  <label class="form-label">Categoria <span class="text-danger fw-bold">*</span></label>
+   				  <select class="form-select" id="category" aria-label="Categorias">
+   				  </select>
+      			</div>
+
+      			<div class="mb-3 col-12">
+      			  <label for="installation_tip" class="form-label">Dica de instalação</label>
+      			  <textarea class="form-control" id="installation_tip" rows="3" placeholder="Ex: bash $HOME/DataSocial/setup"></textarea>
+      			</div>
+   			  </div>
+            </form>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-success" data-save>Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal visualizar -->
+    <div class="modal fade" id="modalVisualizar" tabindex="-1" aria-labelledby="modalVisualizarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalVisualizarLabel">Visualizar</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal atualizar -->
+    <div class="modal fade" id="modalAtualizar" tabindex="-1" aria-labelledby="modalAtualizarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAtualizarLabel">Atualizar</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="" method="post" id="update-form" novalidate>
+              <div class="row">
+			    <div class="mb-3 col-6">
+				  <label for="name" class="form-label">Nome <span class="text-danger fw-bold">*</span></label>
+				  <input type="text" class="form-control" id="name" placeholder="Ex: Data Social" required>
+			    </div>
+
+			    <div class="mb-3 col-6">
+				  <label for="author" class="form-label">Autor <span class="text-danger fw-bold">*</span></label>
+				  <input type="text" class="form-control" id="author" placeholder="Ex: Oliver Silva" required>
+			    </div>
+			    
+			    <div class="mb-3 col-6">
+				  <label for="alias" class="form-label">Apelido <span class="text-danger fw-bold">*</span></label>
+				  <input type="text" class="form-control" id="alias" placeholder="Ex: DataSocial" required>
+			    </div>
+			    
+			    <div class="mb-3 col-6">
+   				  <label for="custom_alias" class="form-label">Apelido customizado</label>
+   				  <input type="text" class="form-control" id="custom_alias" placeholder="Ex: datasocial">
+   			    </div>
+   			    
+   			    <div class="mb-3 col-6">
+   				  <label for="name_repo" class="form-label">Nome do repositório</label>
+   				  <input type="text" class="form-control" id="name_repo" placeholder="Ex: DataSocial">
+   			    </div>
+
+   			    <div class="mb-3 col-6">
+   				  <label for="dependencies" class="form-label">Dependências</label>
+   				  <input type="text" class="form-control" id="dependencies" placeholder="Ex: proot git">
+   			    </div>
+   			    
+   			    <div class="mb-3 col-12">
+   				  <label for="link" class="form-label">Link do repositório</label>
+   				  <input type="url" class="form-control" id="link" placeholder="Ex: https://github.com/Olliv3r/DataSocial">
+   			    </div>
+
+   			    <div class="mb-3 col-12">
+   			      <label class="form-label">Tipo de instalação <span class="text-danger fw-bold">*</span></label>
+				  <select class="form-select" id="type_install" aria-label="Tipos de instalação">
+				  </select>
+   			    </div>
+   			    
+   			    <div class="mb-3 col-12">
+      			  <label class="form-label">Categoria <span class="text-danger fw-bold">*</span></label>
+   				  <select class="form-select" id="category" aria-label="Categorias">
+   				  </select>
+      			</div>
+
+      			<div class="mb-3 col-12">
+      			  <label for="installation_tip" class="form-label">Dica de instalação</label>
+      			  <textarea class="form-control" id="installation_tip" rows="3" placeholder="Ex: bash $HOME/DataSocial/setup"></textarea>
+      			</div>
+   			  </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-warning" data-save>Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal apagar -->
+    <div class="modal fade" id="modalApagar" tabindex="-1" aria-labelledby="modalApagarLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header text-bg-danger">
+            <h1 class="modal-title fs-5" id="modalApagarLabel">EXCLUIR ÍTEM</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Tem certeza que deseja excluir este ítem?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" data-save>Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
