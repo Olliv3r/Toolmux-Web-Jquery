@@ -69,7 +69,7 @@ $(document).ready(function() {
       data: {tool_id: tool_id},
       dataType: 'json'
     }).done(function(response) {
-      $("#modalVisualizar .modal-body").html(response.view_tool_response);
+      $("#modalView .modal-body").html(response.view_tool_response);
     });
   });
 });
@@ -79,64 +79,62 @@ $(document).ready(function() {
   $.ajax({
 	url: '/get-data-tc',
 	dataType: 'json'
+	
   }).done(function(response) {
-    response.types_install.forEach(type_install => {
-      $("#modalAdicionar #type_install").append('<option value="' + type_install.id + '">' + type_install.name + '</option>');
+    response.installation_types.forEach(installation_type => {
+      $("#modalAdd #installation_type").append('<option value="' + installation_type.id + '">' + installation_type.name + '</option>');
     });
-    $("#modalAtualizar #type_install").val("1");
+    $("#modalAdd #installation_type").val("1");
     response.categories.forEach(category => {
-      $("#modalAdicionar #category").append('<option value="' + category.id + '">' + category.name + '</option>');
+      $("#modalAdd #category").append('<option value="' + category.id + '">' + category.name + '</option>');
     });
-    $("#modalAtualizar #category").val("1");	
+    $("#modalAdd #category").val("1");	
   });
-  
-  $("#modalAdicionar").on("click", "[data-save]", function() {
     
-    $("#modalAdicionar #add-form").addClass("was-validated");
-    
-    if ($("#modalAdicionar #name").val() == "") {
-      $("#modalAdicionar #name").addClass("is-invalid");
-      return;
-    } else {
-      $("#modalAdicionar #name").addClass("is-valid");
-    }
-    
-    if ($("#modalAdicionar #author").val() == "") {
-      $("#modalAdicionar #author").addClass("is-invalid");
-      return;
-    } else {
-      $("#modalAdicionar #author").addClass("is-valid");
-    }
-      
-    if ($("#modalAdicionar #alias").val() == "") {
-      $("#modalAdicionar #alias").addClass("is-invalid");
-      return;
-    } else {
-      $("#modalAdicionar #alias").addClass("is-valid");
-      $("#modalAdicionar [data-save]").attr("disabled", "");
-    }
-    
-	  $.ajax({
-  	  url: '/add-tool',
-  	  method: 'POST',
-  	  data: {
-  	    'name': $("#modalAdicionar #name").val(),
-  	    'author': $("#modalAdicionar #author").val(),
-  	    'alias': $("#modalAdicionar #alias").val(),
-  	    'custom_alias': $("#modalAdicionar #custom_alias").val(),
-  	    'name_repo': $("#modalAdicionar #name_repo").val(),
-  	    'link': $("#modalAdicionar #link").val(),
-  	    'type_install': $("#modalAdicionar #type_install").val(),
-  	    'category': $("#modalAdicionar #category").val(),
-  	    'dependencies': $("#modalAdicionar #dependencies").val(),
-  	    'installation_tip': $("#modalAdicionar #installation_tip").val()
-      },
+  $("#modalAdd").on("click", "[data-save]", function() {
+    $("#modalAdd #add-form").addClass("was-validated");
+	if ($("#modalAdd #name").val() == "") {
+	   $("#modalAdd #name").addClass("is-invalid");
+       return;
+	} else {
+	   $("#modalAds #name").addClass("is-valid");
+	}
+	       
+	if ($("#modalAdd #author").val() == "") {
+	   $("#modalAdd #author").addClass("is-invalid");
+	   return;
+	} else {
+	   $("#modalAdd #author").addClass("is-valid");
+	}
+	         
+	if ($("#modalAdd #alias").val() == "") {
+	   $("#modalAdd #alias").addClass("is-invalid");
+	   return;
+	} else {
+	   $("#modalAdd #alias").addClass("is-valid");
+	}
+   
+    $.ajax({
+      url: '/add-tool',
+      method: 'POST',
+      data: {
+        'name': $("#modalAdd #name").val(),
+    	'author': $("#modalAdd #author").val(),
+   	    'alias': $("#modalAdd #alias").val(),
+  	    'custom_alias': $("#modalAdd #custom_alias").val(),
+  	    'name_repo': $("#modalAdd #name_repo").val(),
+  	    'link': $("#modalAdd #link").val(),
+  	    'installation_type': $("#modalAdd #installation_type").val(),
+  	    'category': $("#modalAdd #category").val(),
+  	    'dependencies': $("#modalAdd #dependencies").val(),
+  	    'installation_tip': $("#modalAdd #installation_tip").val()},
   	  dataType: 'json'
-	  }).done(function(response) {
-  	  $("#modalAdicionar #add-form").removeClass("was-validated");
+ 
+    }).done(function(response) {
+  	  $("#modalAdd #add-form").removeClass("was-validated");
   	  $("#message").addClass("alert alert-primary");
   	  $("#message").html(response);
-  	  $("#modalAdicionar").modal("hide");
+  	  $("#modalAdd").modal("hide");
   	  get_tools();
   	});
 	
@@ -147,91 +145,91 @@ $(document).ready(function() {
   });
 });
 
-// Atualizar uma tool
+// Editar uma tool
 $(document).ready(function() {
-  $("#tools").on("click", "[data-update-tool-id]", function() {
-    let tool_id = $(this).data("update-tool-id");
+  $("#tools").on("click", "[data-edit-tool-id]", function() {
+    let tool_id = $(this).data("edit-tool-id");
   	
     $.ajax({
-      url: '/get-data-update',
+      url: '/get-data-edit',
       data: {'tool_id': tool_id},
       dataType: 'json'
     }).done(function(response) {
-  	  $("#modalAtualizar #type_install").html("");
-  	  $("#modalAtualizar #category").html("");
+  	  $("#modalEdit #installation_type").html("");
+  	  $("#modalEdit #category").html("");
 	  
-      $("#modalAtualizar #name").val(response.name);
-      $("#modalAtualizar #author").val(response.author);
-      $("#modalAtualizar #alias").val(response.alias);
-      $("#modalAtualizar #custom_alias").val(response.custom_alias);
-      $("#modalAtualizar #name_repo").val(response.name_repo);
-      $("#modalAtualizar #link").val(response.link);
-      $("#modalAtualizar #dependencies").val(response.dependencies);
-      $("#modalAtualizar #installation_tip").val(response.installation_tip);
+      $("#modalEdit #name").val(response.name);
+      $("#modalEdit #author").val(response.author);
+      $("#modalEdit #alias").val(response.alias);
+      $("#modalEdit #custom_alias").val(response.custom_alias);
+      $("#modalEdit #name_repo").val(response.name_repo);
+      $("#modalEdit #link").val(response.link);
+      $("#modalEdit #dependencies").val(response.dependencies);
+      $("#modalEdit #installation_tip").val(response.installation_tip);
       
-      response.types_install.forEach(type_install => {
-        $("#modalAtualizar #type_install").append('<option value="' + type_install.id + '">' + type_install.name + '</option>');
+      response.installation_types.forEach(installation_type => {
+        $("#modalEdit #installation_type").append('<option value="' + installation_type.id + '">' + installation_type.name + '</option>');
       });
-      $("#modalAtualizar #type_install").val(response.type_install_id);
+      $("#modalEdit #installation_type").val(response.installation_type_id);
       response.categories.forEach(category => {
-        $("#modalAtualizar #category").append('<option value="' + category.id + '">' + category.name + '</option>');
+        $("#modalEdit #category").append('<option value="' + category.id + '">' + category.name + '</option>');
       });
-      $("#modalAtualizar #category").val(response.category_id);
-      $("#modalAtualizar [data-save]").val(tool_id);
+      $("#modalEdit #category").val(response.category_id);
+      $("#modalEdit [data-save]").val(tool_id);
     });
   });
   
-  $("#modalAtualizar [data-save]").on("click", function() {
-    $("#modalAtualizar #update-form").addClass("was-validated");
+  $("#modalEdit [data-save]").on("click", function() {
+    $("#modalEdit #edit-form").addClass("was-validated");
     
-    if ($("#modalAtualizar #name").val() == "") {
-      $("#modalAtualizar #name").addClass("is-invalid");
+    if ($("#modalEdit #name").val() == "") {
+      $("#modalEdit #name").addClass("is-invalid");
       return;
     } else {
-      $("#modalAtualizar #name").addClass("is-valid");
+      $("#modalEdit #name").addClass("is-valid");
     }
     
-    if ($("#modalAtualizar #author").val() == "") {
-      $("#modalAtualizar #author").addClass("is-invalid");
+    if ($("#modalEdit #author").val() == "") {
+      $("#modalEdit #author").addClass("is-invalid");
       return;
     } else {
-      $("#modalAtualizar #author").addClass("is-valid");
+      $("#modalEdit #author").addClass("is-valid");
     }
       
-    if ($("#modalAtualizar #alias").val() == "") {
-      $("#modalAtualizar #alias").addClass("is-invalid");
+    if ($("#modalEdit #alias").val() == "") {
+      $("#modalEdit #alias").addClass("is-invalid");
       return;
     } else {
-      $("#modalAtualizar #alias").addClass("is-valid");
+      $("#modalEdit #alias").addClass("is-valid");
     }
     
     $.ajax({
-  	  url: '/update-tool',
+  	  url: '/edit-tool',
   	  method: 'POST',
       data: {
-  	   'tool_id': $("#modalAtualizar [data-save]").val(),
-  	   'name': $("#modalAtualizar #name").val(),
-  	   'author': $("#modalAtualizar #author").val(),
-  	   'alias': $("#modalAtualizar #alias").val(),
-  	   'custom_alias': $("#modalAtualizar #custom_alias").val(),
-  	   'name_repo': $("#modalAtualizar #name_repo").val(),
-  	   'link': $("#modalAtualizar #link").val(),
-  	   'type_install_id': $("#modalAtualizar #type_install").val(),
-  	   'category_id': $("#modalAtualizar #category").val(),
-  	   'dependencies': $("#modalAtualizar #dependencies").val(),
-  	   'installation_tip': $("#modalAtualizar #installation_tip").val()
+  	   'tool_id': $("#modalEdit [data-save]").val(),
+  	   'name': $("#modalEdit #name").val(),
+  	   'author': $("#modalEdit #author").val(),
+  	   'alias': $("#modalEdit #alias").val(),
+  	   'custom_alias': $("#modalEdit #custom_alias").val(),
+  	   'name_repo': $("#modalEdit #name_repo").val(),
+  	   'link': $("#modalEdit #link").val(),
+  	   'installation_type_id': $("#modalEdit #installation_type").val(),
+  	   'category_id': $("#modalEdit #category").val(),
+  	   'dependencies': $("#modalEdit #dependencies").val(),
+  	   'installation_tip': $("#modalEdit #installation_tip").val()
       },
 	    dataType: 'json'
 	  }).done(function(response) {
   	  $("#message").addClass("alert alert-primary");
   	  $("#message").html(response.msg);
-  	  $("#modalAtualizar").modal("hide");
-  	  $("#modalAtualizar #add-form").removeClass("was-validated");
+  	  $("#modalEdit").modal("hide");
+  	  $("#modalEdit #add-form").removeClass("was-validated");
   	  get_tools();
   	}).fail(function(response) {
   	  $("#message").addClass("alert alert-danger");
   	  $("#message").html(response.msg);
-  	  $("#modalAtualizar").modal("hide");
+  	  $("#modalEdit").modal("hide");
       get_tools();
     });
       
@@ -247,7 +245,7 @@ $(document).ready(function() {
   $("#tools").on("click", "[data-delete-tool-id]", function() {
     let tool_id = $(this).data("delete-tool-id");
     
-    $("#modalApagar [data-save]").on("click", function() {
+    $("#modalDelete [data-save]").on("click", function() {
       $.ajax({
         url: '/delete-tool',
         method: 'POST',
@@ -256,7 +254,7 @@ $(document).ready(function() {
       }).done(function(response) {
         $("#message").addClass("alert alert-primary");
         $("#message").html(response.msg);
-        $("#modalApagar").modal("hide");
+        $("#modalDelete").modal("hide");
         get_tools();
       });
     });

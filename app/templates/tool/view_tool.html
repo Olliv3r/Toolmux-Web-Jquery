@@ -1,40 +1,52 @@
 <dl class="row">
   <dt class="col-4">ID</dt>
   <dd class="col-8">{{ tool.id }}</dd>
-  
   <dt class="col-4">Nome</dt>
   <dd class="col-8">{{ tool.name }}</dd>
-  
   <dt class="col-4">Autor</dt>
-  <dd class="col-8">{{ tool.author }}</dd>
-  
+  <dd class="col-8">{{ tool.author.name }}</dd>
   <dt class="col-4">Apelido</dt>
   <dd class="col-8">{{ tool.alias }}</dd>
   
+  {% if tool.custom_alias %}
   <dt class="col-4">Apelido customizado</dt>
   <dd class="col-8">{{ tool.custom_alias }}</dd>
+  {% endif %}
   
+  {% if tool.name_repo %}
   <dt class="col-4">Nome do repositório</dt>
   <dd class="col-8">{{ tool.name_repo }}</dd>
+  {% endif %}
   
+  {% if tool.link %}
   <dt class="col-4">Link</dt>
-  <dd class="col-8 overflow-auto">{{ tool.link }}</dd>
+  <dd class="col-8 overflow-auto">
+    <a class="text-danger" href="https://github.com/{{ tool.link }}">
+      https://github.com/{{ tool.link }} 
+    </a>
+  </dd>
+  {% endif %}
   
+  {% if tool.dependencies %}
   <dt class="col-4">Dependências</dt>
   <dd class="col-8 overflow-auto">{{ tool.dependencies }}</dd>
-  
+  {% endif %}
+
   <dt class="col-4">Instalação via</dt>
-  <dd class="col-8">{{ tool.type_install.name }}</dd>
-  
+  <dd class="col-8">{{ tool.installation_type.name }}</dd>
   <dt class="col-4">Categoria</dt>
   <dd class="col-8">{{ tool.category.name }}</dd>
 
+  {% if tool.installation_tip %}
   <dt class="col-4">Dica de instalação</dt>
-  <dd class="col-8 overflow-auto">{{ tool.installation_tip }}</dd>
-
+  <dd class="col-8 overflow-auto">
+    <pre class="text-success">{{ tool.installation_tip }}</pre>
+  </dd>
+  {% endif %}
+  
   <dt class="col-4">Criado</dt>
-  <dd class="col-8">{{ moment(tool.created).fromNow() }}</dd>
+  <dd class="col-8">{{ tool.created }}</dd>
   
   <dt class="col-4">Modificado</dt>
-  <dd class="col-8">{{ moment(tool.modified).fromNow() }}</dd>
+  <dd class="col-8">{{ tool.modified }}</dd>
 </dl>

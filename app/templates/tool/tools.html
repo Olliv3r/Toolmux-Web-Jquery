@@ -13,29 +13,29 @@
     <tr>
       <td>{{ tool.id }}</td>
       <td>{{ tool.name }}</td>
-      <td>{{ tool.author }}</td>
+      <td>{{ tool.author.name }}</td>
       <td>
         <div class="dropdown d-md-none">
           <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" role="button" data-view-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalVisualizar">Visualizar</a>
+              <a class="dropdown-item" role="button" data-view-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalView">Visualizar</a>
             </li>
             <li>
-              <a class="dropdown-item" role="button" data-update-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalAtualizar">Atualizar
+              <a class="dropdown-item" role="button" data-edit-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalEdit">Editar
               </a>
             </li>
             <li>
-              <a class="dropdown-item" role="button" data-delete-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalApagar">Apagar</a>
+              <a class="dropdown-item" role="button" data-delete-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalDelete">Apagar</a>
               </li>
           </ul>
         </div>
 
   	    <div class="d-none d-md-block">
-          <a class="btn btn-sm btn-outline-primary" role="button" data-view-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalVisualizar">Visualizar</a>
-  	      <a class="btn btn-sm btn-outline-warning" role="button" data-update-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalAtualizar">Atualizar</a>
-  	      <a class="btn btn-sm btn-outline-danger" role="button" data-delete-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalApagar">Apagar</a>
+          <a class="btn btn-sm btn-outline-primary" role="button" data-view-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalView">Visualizar</a>
+  	      <a class="btn btn-sm btn-outline-warning" role="button" data-update-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalEdit">Atualizar</a>
+  	      <a class="btn btn-sm btn-outline-danger" role="button" data-delete-tool-id='{{ tool.id }}' data-bs-toggle="modal" data-bs-target="#modalDelete">Apagar</a>
   	    </div>
       </td>
     </tr>

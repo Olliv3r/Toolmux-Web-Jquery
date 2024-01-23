@@ -12,21 +12,17 @@
   </head>
   <body>
     {% include 'nav.html' %}
-
-    <div class="messages">
-      {{ render_messages(dismiss_animate=True) }}
-    </div>
+    {% include 'messages.html' %}
 
     {% block content %}{% endblock %}
 
     {% block scripts %}
-      {{ moment.include_moment() }}
       {{ bootstrap.load_js() }}
     {% endblock %}
     
     {{ render_static('js', 'js/jquery-3.7.1.min.js') }}
     {{ render_static('js', 'js/script.js') }}
-
+    
     {% include 'footer.html' %}
   </body>
 </html>
