@@ -14,7 +14,7 @@ def tools():
   
   return jsonify({'tools_response': render_template('tool/tools.html', title = 'Ferramentas', tools = tools.items, prev_url = prev_url, next_url = next_url)})
 
-@bp.route('/get-data-tc')
+@bp.route('/get-data-ic')
 def getDataInstallationTypesCategories():
   installation_types = [{'id': it.id, 'name': it.name} for it in InstallationType.query.order_by(InstallationType.id.asc()).all()]
   categories = [{'id': ca.id, 'name': ca.name} for ca in Category.query.order_by(Category.id.asc()).all()]
@@ -27,16 +27,21 @@ def getDataInstallationTypesCategories():
 @bp.route('/add-tool', methods = ['GET', 'POST'])
 def addTool():
   if request.method == 'POST':
-    tool = Tool(name = request.form['name'],
+    tool = Tool(
+      name = request.form['name'],
       author = Author(name = request.form['author']),
       alias = request.form['alias'],
-      custom_alias = request.form['custom_alias'],
-      name_repo = request.form['name_repo'],
+      executable = request.form['executable'],
       link = request.form['link'],
       installation_type = InstallationType.query.get(request.form['installation_type']),
       category = Category.query.get(request.form['category']),
       dependencies = request.form['dependencies'],
-      installation_tip = request.form['installation_tip'])
+      installation_tip = request.form['installation_tip'],
+      description = request.form['description'])
+  
+    if tool.link != "":
+      tool.name_repo = tool.link.split('/')[1]
+      tool.author.github = f"https://github.com/{tool.link.split('/')[0]}"
     db.session.add(tool)
     db.session.commit()
   return jsonify(f'Ferramenta adicionada com sucesso!')
@@ -46,7 +51,7 @@ def viewTool():
   tool_id = request.args.get('tool_id')
   tool = Tool.query.filter_by(id = tool_id).first()
   if tool is None:
-    return jsonify('Ferramenta não existe') 
+    return jsonify({'msg': 'Ferramenta não existe'})
   return jsonify({'view_tool_response': render_template('tool/view_tool.html', tool = tool)})
 
 @bp.route('/get-data-edit')
@@ -62,7 +67,7 @@ def getDataEdit():
     'name': tool.name,
     'author': tool.author.name,
     'alias': tool.alias,
-    'custom_alias': tool.custom_alias,
+    'executable': tool.executable,
     'name_repo': tool.name_repo,
     'link': tool.link,
     'installation_type_id': tool.installation_type_id,
@@ -71,6 +76,7 @@ def getDataEdit():
     'category_name': tool.category.name,
     'dependencies': tool.dependencies,
     'installation_tip': tool.installation_tip,
+    'description': tool.description,
     'installation_types': installation_types,
     'categories': categories
   })
@@ -84,13 +90,18 @@ def editTool():
     tool.name = request.form['name']
     tool.author = Author(name = request.form['author'])
     tool.alias = request.form['alias']
-    tool.custom_alias = request.form['custom_alias']
-    tool.name_repo = request.form['name_repo']
+    tool.executable = request.form['executable']
     tool.link = request.form['link']
     tool.installation_type = InstallationType.query.get(request.form['installation_type_id'])
     tool.category = Category.query.get(request.form['category_id'])
     tool.dependencies = request.form['dependencies']
     tool.installation_tip = request.form['installation_tip']
+    tool.description = request.form['description']
+    
+    if tool.link != "":
+      tool.name_repo = tool.link.split('/')[1]
+      tool.author.github = f"https://github.com/{tool.link.split('/')[0]}"
+      
     db.session.add(tool)
     db.session.commit()
   return jsonify({'msg': 'Ferramenta atualizada com sucesso'})

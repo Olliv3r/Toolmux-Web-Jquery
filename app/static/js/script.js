@@ -77,7 +77,7 @@ $(document).ready(function() {
 // Adicionar uma tool
 $(document).ready(function() {
   $.ajax({
-	url: '/get-data-tc',
+	url: '/get-data-ic',
 	dataType: 'json'
 	
   }).done(function(response) {
@@ -90,30 +90,35 @@ $(document).ready(function() {
     });
     $("#modalAdd #category").val("1");	
   });
-    
+  
+  $("#modalAdd #link").on("keyup", function() {
+    $("#modalAdd #alias").val($("#modalAdd #link").val().split("/").slice(1,));
+    $("#modalAdd #author").val($("#modalAdd #link").val().split("/").slice(0,1));
+  });
+  
   $("#modalAdd").on("click", "[data-save]", function() {
     $("#modalAdd #add-form").addClass("was-validated");
-	if ($("#modalAdd #name").val() == "") {
-	   $("#modalAdd #name").addClass("is-invalid");
-       return;
-	} else {
-	   $("#modalAds #name").addClass("is-valid");
-	}
-	       
-	if ($("#modalAdd #author").val() == "") {
-	   $("#modalAdd #author").addClass("is-invalid");
-	   return;
-	} else {
-	   $("#modalAdd #author").addClass("is-valid");
-	}
-	         
-	if ($("#modalAdd #alias").val() == "") {
-	   $("#modalAdd #alias").addClass("is-invalid");
-	   return;
-	} else {
-	   $("#modalAdd #alias").addClass("is-valid");
-	}
-   
+  	if ($("#modalAdd #name").val() == "") {
+  	   $("#modalAdd #name").addClass("is-invalid");
+         return;
+  	} else {
+  	   $("#modalAds #name").addClass("is-valid");
+  	}
+  	       
+  	if ($("#modalAdd #author").val() == "") {
+  	   $("#modalAdd #author").addClass("is-invalid");
+  	   return;
+  	} else {
+  	   $("#modalAdd #author").addClass("is-valid");
+  	}
+  	         
+  	if ($("#modalAdd #alias").val() == "") {
+  	   $("#modalAdd #alias").addClass("is-invalid");
+  	   return;
+  	} else {
+  	   $("#modalAdd #alias").addClass("is-valid");
+  	}
+  	
     $.ajax({
       url: '/add-tool',
       method: 'POST',
@@ -121,13 +126,13 @@ $(document).ready(function() {
         'name': $("#modalAdd #name").val(),
     	'author': $("#modalAdd #author").val(),
    	    'alias': $("#modalAdd #alias").val(),
-  	    'custom_alias': $("#modalAdd #custom_alias").val(),
-  	    'name_repo': $("#modalAdd #name_repo").val(),
+  	    'executable': $("#modalAdd #executable").val(),
   	    'link': $("#modalAdd #link").val(),
   	    'installation_type': $("#modalAdd #installation_type").val(),
   	    'category': $("#modalAdd #category").val(),
   	    'dependencies': $("#modalAdd #dependencies").val(),
-  	    'installation_tip': $("#modalAdd #installation_tip").val()},
+  	    'installation_tip': $("#modalAdd #installation_tip").val(),
+  	    'description': $("#modalAdd #description").val()},
   	  dataType: 'json'
  
     }).done(function(response) {
@@ -161,11 +166,11 @@ $(document).ready(function() {
       $("#modalEdit #name").val(response.name);
       $("#modalEdit #author").val(response.author);
       $("#modalEdit #alias").val(response.alias);
-      $("#modalEdit #custom_alias").val(response.custom_alias);
-      $("#modalEdit #name_repo").val(response.name_repo);
+      $("#modalEdit #executable").val(response.executable);
       $("#modalEdit #link").val(response.link);
       $("#modalEdit #dependencies").val(response.dependencies);
       $("#modalEdit #installation_tip").val(response.installation_tip);
+      $("#modalEdit #description").val(response.description);
       
       response.installation_types.forEach(installation_type => {
         $("#modalEdit #installation_type").append('<option value="' + installation_type.id + '">' + installation_type.name + '</option>');
@@ -211,14 +216,13 @@ $(document).ready(function() {
   	   'name': $("#modalEdit #name").val(),
   	   'author': $("#modalEdit #author").val(),
   	   'alias': $("#modalEdit #alias").val(),
-  	   'custom_alias': $("#modalEdit #custom_alias").val(),
-  	   'name_repo': $("#modalEdit #name_repo").val(),
+  	   'executable': $("#modalEdit #executable").val(),
   	   'link': $("#modalEdit #link").val(),
   	   'installation_type_id': $("#modalEdit #installation_type").val(),
   	   'category_id': $("#modalEdit #category").val(),
   	   'dependencies': $("#modalEdit #dependencies").val(),
-  	   'installation_tip': $("#modalEdit #installation_tip").val()
-      },
+  	   'installation_tip': $("#modalEdit #installation_tip").val(),
+  	   'description': $("#modalEdit #description").val()},
 	    dataType: 'json'
 	  }).done(function(response) {
   	  $("#message").addClass("alert alert-primary");
@@ -226,6 +230,7 @@ $(document).ready(function() {
   	  $("#modalEdit").modal("hide");
   	  $("#modalEdit #add-form").removeClass("was-validated");
   	  get_tools();
+  	  
   	}).fail(function(response) {
   	  $("#message").addClass("alert alert-danger");
   	  $("#message").html(response.msg);

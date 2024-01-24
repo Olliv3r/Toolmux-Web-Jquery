@@ -9,7 +9,7 @@ class Tool(db.Model):
   id = db.Column(db.Integer, primary_key = True)
   name = db.Column(db.String(30), nullable = False)
   alias = db.Column(db.String(30), nullable = False)
-  custom_alias = db.Column(db.String(30))
+  executable = db.Column(db.String(30))
   name_repo = db.Column(db.String(30))
   link = db.Column(db.String(60))
   dependencies = db.Column(db.String(500))
@@ -17,6 +17,7 @@ class Tool(db.Model):
   installation_type_id = db.Column(db.Integer, db.ForeignKey('installation_types.id'))
   author_id = db.Column(db.Integer, db.ForeignKey('authors.id'))
   installation_tip = db.Column(db.String(500))
+  description = db.Column(db.String(500))
   created = db.Column(db.DateTime, default = datetime.utcnow)
   modified = db.Column(db.DateTime, default = datetime.utcnow)
   
@@ -66,6 +67,7 @@ class Author(db.Model):
   __tablename__ = 'authors'
   id = db.Column(db.Integer, primary_key = True)
   name = db.Column(db.String(30), nullable = False)
+  github = db.Column(db.String(100), nullable = True)
   tools = db.relationship('Tool', backref = 'author', lazy = 'dynamic')
   created = db.Column(db.DateTime, default = datetime.utcnow)
   modified = db.Column(db.DateTime, default = datetime.utcnow)

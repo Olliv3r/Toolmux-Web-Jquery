@@ -8,21 +8,27 @@
   <dt class="col-4">Apelido</dt>
   <dd class="col-8">{{ tool.alias }}</dd>
   
-  {% if tool.custom_alias %}
-  <dt class="col-4">Apelido customizado</dt>
-  <dd class="col-8">{{ tool.custom_alias }}</dd>
+  {% if tool.executable %}
+  <dt class="col-4">Executável</dt>
+  <dd class="col-8">{{ tool.executable }}</dd>
   {% endif %}
   
   {% if tool.name_repo %}
-  <dt class="col-4">Nome do repositório</dt>
+  <dt class="col-4">Repositório</dt>
   <dd class="col-8">{{ tool.name_repo }}</dd>
   {% endif %}
   
   {% if tool.link %}
   <dt class="col-4">Link</dt>
   <dd class="col-8 overflow-auto">
-    <a class="text-danger" href="https://github.com/{{ tool.link }}">
-      https://github.com/{{ tool.link }} 
+    <a class="text-black text-decoration-none" href="https://github.com/{{ tool.link }}" target="_blank"><i class="fa-solid fa-link"></i>&nbsp;&nbsp;Acessar</a>
+  </dd>
+  {% endif %}
+  
+  {% if tool.author.github %}
+  <dt class="col-4">Github</dt>
+  <dd class="col-8 overflow-auto">
+    <a class="text-black text-decoration-none" href="{{ tool.author.github }}" target="_blank"><i class="fa-solid fa-link"></i>&nbsp;&nbsp;Perfil
     </a>
   </dd>
   {% endif %}
@@ -38,9 +44,16 @@
   <dd class="col-8">{{ tool.category.name }}</dd>
 
   {% if tool.installation_tip %}
-  <dt class="col-4">Dica de instalação</dt>
+  <dt class="col-4">Dica</dt>
   <dd class="col-8 overflow-auto">
-    <pre class="text-success">{{ tool.installation_tip }}</pre>
+    <pre class="text-primary">{{ tool.installation_tip }}</pre>
+  </dd>
+  {% endif %}
+  
+  {% if tool.description %}
+  <dt class="col-4">Descrição</dt>
+  <dd class="col-8">
+    <textarea class="form-control" aria-label='Somente leitura' readonly>{{ tool.description }}</textarea>
   </dd>
   {% endif %}
   
