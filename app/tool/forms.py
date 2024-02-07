@@ -7,7 +7,7 @@ class ToolAddCreateForm(FlaskForm):
   name = StringField('Nome', validators=[DataRequired()])
   author = StringField('Autor', validators=[DataRequired()])
   alias = StringField('Apelido', validators=[DataRequired()])
-  custom_alias = StringField('Apelido personalizado')
+  executable = StringField('Executável  self')
   name_repo = StringField('Nome do repositório')
   link = StringField('Link')
   installation_type = SelectField("Instalação via" ,coerce = int)

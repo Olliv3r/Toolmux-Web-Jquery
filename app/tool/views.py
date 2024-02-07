@@ -1,8 +1,10 @@
+
 from . import bp
 from flask import render_template, current_app, request, redirect, url_for, flash, jsonify
-from app.models import Tool, Category, InstallationType, Author
+from app.models import Tool, Category, InstallationType, Author, Situation
 from .forms import ToolAddCreateForm, ToolUpdateCreateForm, ToolSearchCreateForm
 from app import db
+from sqlalchemy import or_
 
 @bp.route('/tools')
 def tools():
@@ -12,39 +14,44 @@ def tools():
   prev_url = url_for('tool.tools', page = tools.prev_num) if tools.has_prev else None
   next_url = url_for('tool.tools', page = tools.next_num) if tools.has_next else None
   
-  return jsonify({'tools_response': render_template('tool/tools.html', title = 'Ferramentas', tools = tools.items, prev_url = prev_url, next_url = next_url)})
+  return jsonify({'tools': render_template('tool/tools.html', title = 'Ferramentas', tools = tools.items, prev_url = prev_url, next_url = next_url)})
 
-@bp.route('/get-data-ic')
-def getDataInstallationTypesCategories():
+@bp.route('/get-data-ics')
+def getDataICS():
   installation_types = [{'id': it.id, 'name': it.name} for it in InstallationType.query.order_by(InstallationType.id.asc()).all()]
   categories = [{'id': ca.id, 'name': ca.name} for ca in Category.query.order_by(Category.id.asc()).all()]
+  situations = [{'id': si.id, 'name': si.name} for si in Situation.query.order_by(Situation.id.asc()).all()]
 
   return jsonify({
-    'installation_types': installation_types, 
-    'categories': categories
+    'installation_types': installation_types,
+    'categories': categories,
+    'situations': situations,
   })
 
-@bp.route('/add-tool', methods = ['GET', 'POST'])
+@bp.route('/add-tool', methods = ['POST'])
 def addTool():
   if request.method == 'POST':
+    data = request.form.to_dict()
+    
     tool = Tool(
-      name = request.form['name'],
-      author = Author(name = request.form['author']),
-      alias = request.form['alias'],
-      executable = request.form['executable'],
-      link = request.form['link'],
-      installation_type = InstallationType.query.get(request.form['installation_type']),
-      category = Category.query.get(request.form['category']),
-      dependencies = request.form['dependencies'],
-      installation_tip = request.form['installation_tip'],
-      description = request.form['description'])
+      name = data['name'],
+      author = Author(name = data['author']),
+      alias = data['alias'],
+      executable = data['executable'],
+      link = data['link'],
+      installation_type = InstallationType.query.get(data['installation_type']),
+      category = Category.query.get(data['category']),
+      situation = Situation.query.get(data['situation']),
+      dependencies = data['dependencies'],
+      installation_tip = data['installation_tip'],
+      description = data['description'])
   
     if tool.link != "":
-      tool.name_repo = tool.link.split('/')[1]
-      tool.author.github = f"https://github.com/{tool.link.split('/')[0]}"
+      tool.name_repo = tool.link[19:].split('/')[1]
+      tool.author.github = tool.link[:19] + tool.link[19:].split('/')[0]
     db.session.add(tool)
     db.session.commit()
-  return jsonify(f'Ferramenta adicionada com sucesso!')
+  return jsonify({'msg': 'Ferramenta adicionada com sucesso!'})
   
 @bp.route('/view-tool')
 def viewTool():
@@ -61,6 +68,7 @@ def getDataEdit():
     return jsonify({'msg': 'Ferramenta não foi encontrada!'})
   installation_types = [{'id': it.id, 'name': it.name} for it in InstallationType.query.order_by(InstallationType.id.asc()).all()]
   categories = [{'id': ca.id, 'name': ca.name} for ca in Category.query.order_by(Category.id.asc()).all()]
+  situations = [{'id': si.id, 'name': si.name} for si in Situation.query.order_by(Situation.id.asc()).all()]
   
   return jsonify({
     'id': tool.id,
@@ -71,14 +79,14 @@ def getDataEdit():
     'name_repo': tool.name_repo,
     'link': tool.link,
     'installation_type_id': tool.installation_type_id,
-    'installation_type_name': tool.installation_type.name,
     'category_id': tool.category_id,
-    'category_name': tool.category.name,
+    'situation_id': tool.situation_id,
     'dependencies': tool.dependencies,
     'installation_tip': tool.installation_tip,
     'description': tool.description,
     'installation_types': installation_types,
-    'categories': categories
+    'categories': categories,
+    'situations': situations
   })
 
 @bp.route('/edit-tool', methods = ['GET', 'POST'])
@@ -94,13 +102,14 @@ def editTool():
     tool.link = request.form['link']
     tool.installation_type = InstallationType.query.get(request.form['installation_type_id'])
     tool.category = Category.query.get(request.form['category_id'])
+    tool.situation = Situation.query.get(request.form['situation_id'])
     tool.dependencies = request.form['dependencies']
     tool.installation_tip = request.form['installation_tip']
     tool.description = request.form['description']
     
     if tool.link != "":
-      tool.name_repo = tool.link.split('/')[1]
-      tool.author.github = f"https://github.com/{tool.link.split('/')[0]}"
+      tool.name_repo = tool.link[19:].split('/')[1]
+      tool.author.github = tool.link[:19] + tool.link[19:].split('/')[0]
       
     db.session.add(tool)
     db.session.commit()
@@ -120,15 +129,14 @@ def search():
   form = ToolSearchCreateForm()
   return render_template('main/search.html', title = 'Pesquisar', form = form)
 
-@bp.route('/data-search', methods = ['GET', 'POST'])
-def dataSearch():
-  if request.method == 'POST':
-    search_word = request.form['query']
+@bp.route('/search-tools')
+def searchTools():
+  search_word = request.args.get('keyword')
 
-    if search_word == "":
-      tools = Tool.query.order_by(Tool.created.desc()).limit(10).all()
-    else:
-      search_text = "%{}%".format(search_word)
-      tools = Tool.query.filter(Tool.name.contains(search_text)).all()
-      
-  return jsonify({'responsehtml': render_template('tool/search_response.html', tools = tools, count = len(tools))})
+  if search_word == "":
+    tools = Tool.query.order_by(Tool.created.desc()).limit(10).all()
+  else:
+    search_text = f"%{search_word}%"
+    tools = Tool.query.filter(Tool.name.ilike(search_text)).all()
+    
+  return jsonify({'search_tools': render_template('tool/search_tools.html', tools = tools, count = len(tools))})

@@ -56,6 +56,9 @@
     <textarea class="form-control" aria-label='Somente leitura' readonly>{{ tool.description }}</textarea>
   </dd>
   {% endif %}
+
+  <dt class="col-4">Situação</dt>
+  <dd class="col-8">{{ tool.situation.name }}</dd>
   
   <dt class="col-4">Criado</dt>
   <dd class="col-8">{{ tool.created }}</dd>

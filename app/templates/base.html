@@ -13,15 +13,17 @@
   <body>
     {% include 'nav.html' %}
     {% include 'messages.html' %}
-
     {% block content %}{% endblock %}
-
+    
     {% block scripts %}
       {{ bootstrap.load_js() }}
     {% endblock %}
     
     {{ render_static('js', 'js/jquery-3.7.1.min.js') }}
     {{ render_static('js', 'js/script.js') }}
+
+    <script src="static/js/eruda.js"></script>
+    <script>eruda.init();</script>
     
     {% include 'footer.html' %}
   </body>
