@@ -1,8 +1,9 @@
-./__pycache__
-./app/__pycache__
-./app/main/__pycache__
-./app/tool/__pycache__
-./migrations/__pycache__
-./migrations/versions/__pycache__
-./.flaskenv
-./other
+__pycache__
+app/__pycache__
+app/main/__pycache__
+app/tool/__pycache__
+app/test
+migrations/__pycache__
+migrations/versions/__pycache__
+.flaskenv
+other
