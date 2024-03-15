@@ -1,0 +1,125 @@
+2024-03-15 17:15:02,116 ERROR: Exception on /delete-user [POST] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 822, in _read_query_result
+    result.read()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`toolmux`.`comment`, CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_author_id`) REFERENCES `user` (`id`))')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/decorators.py", line 12, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/dashboard/views.py", line 151, in deleteUser
+    db.session.commit()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/scoping.py", line 598, in commit
+    return self._proxied.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1969, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1256, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1231, in _prepare_impl
+    self.session.flush()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4312, in flush
+    self._flush(objects)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4447, in _flush
+    with util.safe_reraise():
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4408, in _flush
+    flush_context.execute()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 679, in execute
+    util.preloaded.orm_persistence.delete_obj(
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 191, in delete_obj
+    _emit_delete_statements(
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 1457, in _emit_delete_statements
+    c = connection.execute(
+        ^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 517, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2344, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/cursors.py", line 153, in execute
+    result = self._query(query)
+             ^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/cursors.py", line 322, in _query
+    conn.query(q)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 558, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 822, in _read_query_result
+    result.read()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 1200, in read
+    first_packet = self.connection._read_packet()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/connections.py", line 772, in _read_packet
+    packet.raise_for_error()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1451, 'Cannot delete or update a parent row: a foreign key constraint fails (`toolmux`.`comment`, CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_author_id`) REFERENCES `user` (`id`))')
+[SQL: DELETE FROM user WHERE user.id = %(id)s]
+[parameters: {'id': 2}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-03-15 18:08:24,458 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:74]

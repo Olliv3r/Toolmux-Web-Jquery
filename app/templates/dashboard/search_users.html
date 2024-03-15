@@ -1,0 +1,49 @@
+{% if count >= 1 %} 
+<p class="lead mb-1 mt-1 fw-bold">Total de {{ count }} resultados encontrados!</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Username</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <div class="dropdown d-md-none">
+          <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Ação
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" role="button" data-view-user-id='{{ user.id }}' data-bs-toggle="modal" data-bs-target="#modalViewUser">Visualizar</a>
+            </li>
+            <li>
+              <a class="dropdown-item" role="button" data-update-user-id='{{ user.id }}' data-bs-toggle="modal" data-bs-target="#modalEditUser">Atualizar
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" role="button" data-delete-user-id='{{ user.id }}' data-bs-toggle="modal" data-bs-target="#modalDeleteUser">Apagar</a>
+              </li>
+          </ul>
+        </div>
+
+  	    <div class="d-none d-md-block">
+          <a class="btn btn-sm btn-outline-primary" role="button" data-view-user-id='{{ user.id }}' data-bs-toggle="modal" data-bs-target="#modalViewUser">Visualizar</a>
+  	      <a class="btn btn-sm btn-outline-warning" role="button" data-update-user-id='{{ user.id }}' data-bs-toggle="modal" data-bs-target="#modalEditUser">Atualizar</a>
+  	      <a class="btn btn-sm btn-outline-danger" role="button" data-delete-user-id='{{ user.id }}' data-bs-toggle="modal" data-bs-target="#modalDeleteUser">Apagar</a>
+  	    </div>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="lead mb-1 mt-1 fw-bold">Nenhuma correspondencia encontrada</p>
+{% endif %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2>Olá, {{ current_user.username }}</h2>
+  <h4>Você ainda não confirmou sua conta!</h4>
+  <p>Antes de acessar este site, você precisa confirmar sua conta. Verifique sua caixa de entrada Você deve ter recebido um e-mail com um link de confirmação.</p>
+  <p>Precisa de outro e-mail de confirmação? <a href="{{ url_for('auth.resend_confirm') }}">clique aqui</a></p>
+</div>
+{% endblock %}

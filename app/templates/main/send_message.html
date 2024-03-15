@@ -1,0 +1,8 @@
+{% from 'bootstrap4/form.html' import render_form %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2 class="mb-3">Enviar para {{ recipient }}</h2>
+  {{ render_form(form) }}
+</div>
+{% endblock %}

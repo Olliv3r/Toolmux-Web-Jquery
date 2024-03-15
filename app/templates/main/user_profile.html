@@ -1,0 +1,81 @@
+<div class="main-body">
+  <!-- /Breadcrumb -->
+  <div class="row gutters-sm">
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-header">Foto de Perfil</div>
+        <div class="card-body">
+          <div class="d-flex flex-column align-items-center text-center personal-image">
+            <form id="profileForm" method="POST" accept-charset="utf-8" enctype="multipart/form-data" class="mb-3">
+              <label for="fileInput">
+                <input type="file" accept="image/*" name="fileInput" id="fileInput"/>
+                <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}">
+                <figure class="personal-figure">
+                  <img src="{{ user.profile_image_url }}" alt="Foto de perfil do usuário" class="rounded-circle personal-avatar" width="150" id="previewImage">
+                  <figcaption class="personal-figcaption">
+                    <img src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png">
+                  </figcaption>
+                </figure>
+              </label>
+              <div class="mb-2">
+                <p style="color:#777;font-size:0.9em;">JPG, PNG ou GIF não maior que 1 MB</p>
+              </div>
+              <button type="submit" id="saveButton" class="btn btn-primary">Salvar foto</button>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-header">Detalhes da conta</div>
+        <div class="card-body">
+          <form id="profileEditForm" method="post">
+            <input type="hidden" id="profile_username" value="{{ user.username }}"/>
+            
+            <div class="mb-3">
+              <label for="username" class="form-label">Usuário</label>
+              <input type="text" class="form-control field" name="username" id="username" value="{% if user.username %}{{ user.username }}{% endif %}" placeholder="Seu usuário">
+            </div>
+            
+            <div class="mb-3">
+              <label for="name" class="form-label">Nome completo</label>
+              <input type="text" class="form-control field" name="name" id="name" value="{% if user.name %}{{ user.name }}{% endif %}" placeholder="Nome completo">
+            </div>
+  
+            <div class="mb-3">
+              <label for="email" class="form-label">E-mail</label>
+              <input type="email" class="form-control field" name="email" id="email" value="{% if user.email %}{{ user.email }}{% endif %}" placeholder="Seu melhor e-mail">
+            </div>
+            
+            <div class="mb-3">
+              <label for="address" class="form-label">Endereço</label>
+              <input type="text" class="form-control field" name="address" id="address" value="{% if user.address %}{{ user.address }}{% endif %}" placeholder="Endereço">
+            </div>
+            
+            <div class="mb-3">
+              <label for="website" class="form-label">Website</label>
+              <input type="url" class="form-control field" name="website" id="website" value="{% if user.website %}{{ user.website }}{% endif %}" placeholder="Site ou blog">
+            </div>
+            
+            <div class="mb-3">
+              <label for="github" class="form-label">Github</label>
+              <input type="url" class="form-control field" name="github" id="github" value="{% if user.github %}{{ user.github }}{% endif %}" placeholder="Perfil do github">
+            </div>
+            
+            <div class="mb-3">
+              <label for="profission" class="form-label">Profissão</label>
+              <input type="text" class="form-control field" name="profission" id="profission" value="{% if user.profission %}{{ user.profission }}{% endif %}" placeholder="Sua atuação">
+            </div>
+            
+            <div class="mb-3">
+              <button class="btn btn-primary" type="submit">Editar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<p>Querido(a) {{ user.username }}</p>
+<p>Para confirmar sua conta <a href="{{ url_for('auth.confirm', token=token, _external=True) }}">Clique aqui</a>.</p>
+<p>Alternativamente, você pode colar o seguinte link na barra de endereço do seu navegador:</p>
+<p>{{ url_for('auth.confirm', token=token, _external=True) }}</p>
+<p>Se você não solicitou um e-mail de confirmação, simplesmente ignore esta mensagem.</p>
+<p>Sinceramente,</p>
+<p>A equipe Toolmux</p>

@@ -1,0 +1,2 @@
+Querido(a) {{ user.username }}, Para confirmar sua conta clique no link a seguir:
+{{ url_for('auth.confirm', token=token, _external=True) }} Se você não solicitou um e-mail de confirmação simplesmente ignore esta mensagem.

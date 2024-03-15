@@ -1,0 +1,119 @@
+2024-02-28 19:53:37,445 ERROR: Exception on /get-image [GET] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/user/views.py", line 141, in get_image
+    images = os.listdir(user_folder)
+                        ^^^^^^^^^^^
+NameError: name 'user_folder' is not defined
+2024-02-28 19:54:44,324 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 19:55:56,323 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:12:18,948 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:19:35,676 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:27:15,542 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:27:41,357 ERROR: Exception on /get-image [GET] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/user/views.py", line 150, in get_image
+    if not os.path.exists(image_path):
+                          ^^^^^^^^^^
+NameError: name 'image_path' is not defined
+2024-02-28 23:28:50,095 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:30:02,226 ERROR: Exception on /upload [POST] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/user/views.py", line 189, in upload_file
+    dir_user = create_dir_user(user_id)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/user/views.py", line 154, in create_dir_user
+    dir_user = os.path.join(current_app.config['UPLOAD_PATH'], str(user_id))
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'UPLOAD_PATH'
+2024-02-28 23:33:31,529 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:35:01,894 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:35:20,969 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:36:44,635 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:36:52,005 ERROR: Exception on /get-image [GET] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/user/views.py", line 141, in get_image
+    images = os.listdir(user_folder)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/static/images/avatars/2'
+2024-02-28 23:41:17,414 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:47:55,629 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:49:40,418 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-28 23:51:11,415 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 00:32:32,112 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 00:36:21,990 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 00:47:36,981 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 00:56:09,419 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 00:57:53,728 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 00:59:02,031 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 01:00:37,897 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 01:01:18,386 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 01:01:56,130 ERROR: Exception on /upload [POST] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/user/views.py", line 184, in upload_file
+    abort(400)
+    ^^^^^
+NameError: name 'abort' is not defined
+2024-02-29 01:03:05,539 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 01:06:28,319 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 01:09:09,896 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-02-29 01:10:15,202 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]

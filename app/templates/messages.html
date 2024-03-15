@@ -1,3 +1,4 @@
-<div class="messages">
+{% from 'bootstrap4/utils.html' import render_messages %}
+<div style="color:red;margin:10px 0;text-align:center;">
   {{ render_messages(dismiss_animate=True) }}
 </div>

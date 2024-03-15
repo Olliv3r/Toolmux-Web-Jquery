@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+  font-family: Segoe UI, Sans-Serif;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #FFF;
+}
+.form-container h2 {
+  font-size: 1.5rem;
+  text-align: left;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.form-container {
+  max-width: 400px;
+  width: 400px;
+  height: auto;
+  background-color: #f8f9fa;
+  padding: 40px 30px;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-container h2 + p {
+  color: #555;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.form-container form label {
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.form-container form input:not([type=checkbox]) {
+  display: block;
+  height: 50px;
+  padding: 0 10px;
+  margin: 10px 0 25px 0;
+  width: 100%;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: transparent;
+}
+.form-container form input[type=checkbox] {
+  margin: 10px 0 25px 0;
+}
+.form-container button {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border: none;
+  background-color: #0e4cb3;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+#form-register,
+#form-login {
+  margin-bottom: 30px;
+}
+
+#form-register > a, 
+#form-login > a {
+  color: #555;
+  display: block;
+  margin: 25px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.form-container form + p {
+  text-align: center;
+  display: block;
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.form-container form + p a {
+  color: #0e4cb3;
+}

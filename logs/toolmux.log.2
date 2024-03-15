@@ -1,0 +1,112 @@
+2024-03-06 00:59:06,670 ERROR: Exception on /community [GET] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/community/views.py", line 9, in community
+    return render_template('community/community.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/templates/community/community.html", line 2, in top-level template code
+    {% extends 'base.html' %}
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/templates/base.html", line 21, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/templates/community/community.html", line 21, in block 'content'
+    <a href="{{ url_for('auth.signup', next=community.community) }}" class="btn btn-primary btn-sm">Inscreva-se</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/jinja2/environment.py", line 485, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'community' is undefined
+2024-03-06 00:59:46,730 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:03:24,423 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:08:02,328 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:08:05,229 ERROR: Exception on /auth/signin [GET] [in /data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py:825]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/auth/views.py", line 72, in signin
+    return render_template('auth/signin.html', title = 'Entrar', form = form)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/templating.py", line 152, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/flask/templating.py", line 133, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/templates/auth/signin.html", line 3, in top-level template code
+    {% extends 'base.html' %}
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/templates/base.html", line 22, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/Toolmux-Web-Jquery/app/templates/auth/signin.html", line 7, in block 'content'
+    {{ render_form(form) }}
+  File "/data/data/com.termux/files/home/toolmux-web-venv/lib/python3.11/site-packages/jinja2/utils.py", line 83, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'render_form' is undefined
+2024-03-06 01:08:41,119 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:09:42,313 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:11:39,638 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:16:10,016 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:21:32,812 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:29:10,692 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:29:44,831 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:32:09,073 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:37:31,729 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:39:12,825 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:40:32,365 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:45:39,250 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:49:57,646 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:50:40,799 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:53:36,564 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 01:56:17,361 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:01:54,688 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:03:20,508 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:04:20,205 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:04:58,821 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:11:37,025 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:13:08,644 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:24:07,336 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:26:32,818 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:28:53,512 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:32:57,842 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:35:25,032 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:41:32,393 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 02:43:08,823 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 17:46:17,969 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 17:49:09,110 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]
+2024-03-06 17:52:29,981 INFO: Toolmux startup [in /data/data/com.termux/files/home/Toolmux-Web-Jquery/app/__init__.py:86]

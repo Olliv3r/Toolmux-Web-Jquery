@@ -1,258 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% block content %}
-<div class="container">
-  <div class="d-flex justify-content-between mb-3">
-    <h2>Ferramentas</h2>
-    <button role="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">Adicionar</button>
-  </div>
 
-  <p id="message"></p>
-  
-  <div class="mb-3">
-    <input type="text" class="form-control" id="search_text" placeholder="Pesquisar" required>
-  </div>
-  
-  <div id="tableTools"></div>
-
-  <!-- Modal add -->
-  <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="modalAddLabel">Adicionar</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-        <div class="modal-body">
-          <form id="add-form" method="post" class="was-validated">
-            <div class="row">
-            	<div class="col-6 mb-3">
-                <label for="name" class="form-label">Nome <span class="text-danger">*</span></label>
-                <input type="text" class="form-control field" name="name" id="name" required>
-                <div class="invalid-feedback">Precisa do nome da ferramenta!</div>
-                <div class="valid-feedback">Parece bom!</div>
-              </div>
-  
-              <div class="col-6 mb-3">
-                <label for="author" class="form-label">Autor <span class="text-danger">*</span></label>
-                <input type="text" class="form-control field" name="author" id="author" required>
-                <div class="invalid-feedback">Precisa do autor da ferramenta!</div>
-                <div class="valid-feedback">Parece bom!</div>
-              </div>
-  
-              <div class="col-6 mb-3">
-                <label for="alias" class="form-label">Apelido <span class="text-danger">*</span></label>
-                <input type="text" class="form-control field" name="alias" id="alias" required>
-                <div class="invalid-feedback">Precisa do apelido da ferramenta!</div>
-                <div class="valid-feedback">Parece bom!</div>
-              </div>
-              	
-              <div class="col-6 mb-3">
-                <label for="executable" class="form-label">Executável</label>
-                <input type="text" class="form-control" name="executable">
-                <div class="valid-feedback">Parece bom!</div>                
-              </div>
-              	
-              <div class="col-4 mb-3">
-                <label for="name_repo" class="form-label">Repositório</label>
-                <input type="text" class="form-control" name="name_repo" id="name_repo">
-                <div class="valid-feedback">Parece bom!</div>               
-              </div>
-    
-              <div class="col-8 mb-3">
-                <label for="dependencies" class="form-label">Dependências</label>
-                <input type="text" class="form-control" name="dependencies">
-                <div class="valid-feedback">Parece bom!</div>                
-              </div>
-    
-              <div class="col-12 mb-3">
-                <label for="link" class="form-label">Link</label>
-                <input type="text" class="form-control" name="link" id="link">
-                <div class="valid-feedback">Parece bom!</div>                
-              </div>
-  
-  
-        		    <div class="col-12 mb-3">
-        		      <label for="installation_type" class="form-label">Instalação via</label>
-        		      <select class="form-select installation_types" aria-label="Tipos instalação" name="installation_type" id="installation_type"></select>
-        		      <div class="valid-feedback">Parece bom!</div>
-        		    </div>
-        		    
-        		    <div class="col-12 mb-3">
-        		      <label for="category" class="form-label">Categoria</label>
-        		      <select class="form-select categories" aria-label="Categorias" name="category" id="category"></select>
-        		      <div class="valid-feedback">Parece bom!</div>                
-        		    </div>
-
-        			<div class="col-12 mb-3">
-        		      <label for="situation" class="form-label">Situação</label>
-        		      <select class="form-select situations" aria-label="Situaçôes" name="situation" id="situation"></select>
-        		      <div class="valid-feedback">Parece bom!</div>                
-        		    </div>
-        
-        		    <div class="col-12 mb-3">
-        		      <label for="installation_tip" class="form-label">Dica</label>
-        		      <input type="text" class="form-control" name="installation_tip">
-        		      <div class="valid-feedback">Parece bom!</div>                
-        		    </div>
-        
-        		    <div class="col-12 mb-3">
-        		      <label for="description" class="form-label">Descrição</label>
-        		      <textarea class="form-control" name="description"></textarea>
-        		      <div class="valid-feedback">Parece bom!</div>                
-        		    </div>
-
-              </div>
-          </form>
-        </div>
-        
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn-add btn btn-success">Adicionar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal visualizar -->
-  <div class="modal fade" id="modalView" tabindex="-1" aria-labelledby="modalViewLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="modalViewLabel">Visualizar</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal edit -->
-  <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="modalEditLabel">Editar</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-        <div class="modal-body">
-          <form id="edit-form" class="was-validated" method="post">
-            <div class="row">
-            	<div class="col-6 mb-3">
-                <label for="name" class="form-label">Nome <span class="text-danger">*</span></label>
-                <input type="text" class="form-control field" name="name" id="name" required>
-                <div class="invalid-feedback">Precisa do nome da ferramenta!</div>
-                <div class="valid-feedback">Parece bom!</div>
-              </div>
-  
-              <div class="col-6 mb-3">
-                <label for="author" class="form-label">Autor <span class="text-danger">*</span></label>
-                <input type="text" class="form-control field" name="author" id="author" required>
-                <div class="invalid-feedback">Precisa do autor da ferramenta!</div>
-                <div class="valid-feedback">Parece bom!</div>
-                
-              </div>
-  
-              <div class="col-6 mb-3">
-                <label for="alias" class="form-label">Apelido <span class="text-danger">*</span></label>
-                <input type="text" class="form-control field" name="alias" id="alias" required>
-                <div class="invalid-feedback">Precisa do apelido da ferramenta!</div>
-                <div class="valid-feedback">Parece bom!</div>
-              
-              </div>
-              	
-              <div class="col-6 mb-3">
-                <label for="executable" class="form-label">Executável</label>
-                <input type="text" class="form-control" name="executable" id="executable">
-                <div class="valid-feedback">Parece bom!</div>                
-              </div>
-              	
-              <div class="col-4 mb-3">
-                <label for="name_repo" class="form-label">Repositório</label>
-                <input type="text" class="form-control" name="name_repo" id="name_repo">
-                <div class="valid-feedback">Parece bom!</div>                
-              </div>
-    
-              <div class="col-8 mb-3">
-                <label for="dependencies" class="form-label">Dependências</label>
-                <input type="text" class="form-control" name="dependencies" id="dependencies">
-                <div class="valid-feedback">Parece bom!</div>                
-              </div>
-    
-              <div class="col-12 mb-3">
-                <label for="link" class="form-label">Link</label>
-                <input type="text" class="form-control" name="link" id="link">
-                <div class="valid-feedback">Parece bom!</div>                
-              </div>
-  
-      		    <div class="col-12 mb-3">
-      		      <label for="installation_type" class="form-label">Instalação via</label>
-      		      <select class="form-select installation_types" aria-label="Tipos instalação" name="installation_type" id="installation_type">
-      		      </select>
-                  <div class="valid-feedback">Parece bom!</div>      		      
-      		    </div>
-      		    
-      		    <div class="col-12 mb-3">
-      		      <label for="category" class="form-label">Categoria</label>
-      		      <select class="form-select categories" aria-label="Categorias" name="category" id="category">
-      		      </select>
-                <div class="valid-feedback">Parece bom!</div>      		      
-      		    </div>
-
-      		    <div class="col-12 mb-3">
-        		  <label for="situation" class="form-label">Situação</label>
-        		  <select class="form-select situations" aria-label="Situaçôes" name="situation" id="situation"></select>
-        		  <div class="valid-feedback">Parece bom!</div>                
-        	    </div>
-      
-      		    <div class="col-12 mb-3">
-      		      <label for="installation_tip" class="form-label">Dica</label>
-      		      <input type="text" class="form-control" name="installation_tip" id="installation_tip">
-                <div class="valid-feedback">Parece bom!</div>      		      
-      		    </div>
-      
-      		    <div class="col-12 mb-3">
-      		      <label for="description" class="form-label">Descrição</label>
-      		      <textarea class="form-control" name="description" id="description"></textarea>
-                <div class="valid-feedback">Parece bom!</div>      		      
-      		    </div>
-            </div>
-          </form>
-        </div>
-        
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn-edit btn btn-warning">Editar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Modal delete -->
-  <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="modalDeleteLabel">Apagar</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-        <div class="modal-body">
-          Tem certeza de que deseja apagar este ítem?
-        </div>
-        
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn-delete btn btn-primary">Confirmar</button>
-        </div>
-      </div>
-    </div>
+<div class="jumbotron sobre">
+  <div class="container text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+      <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+      <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+    </svg>
+    <h2 class="title">Sobre</h2>
+    <p class="lead">Toolmux é uma ferramenta que ajuda você a instalar várias ferramentas de testes de penetração e ferramentas de hacking no sistema Android com facilidade.</p>
   </div>
 </div>
+
+<div class="jumbotron transferencia">
+  <div class="container text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708z"/>
+      <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+    </svg>
+    <h2 class="title">Transferência</h2>
+    <p class="lead">Toolmux é um instalador que vem empacotado em um arquivo zip, você pode baixá-lo clicando no botão azul abaixo:</p>
+    <p><a class="btn btn-outline-primary" href="#" role="button">Download</a></p>
+  </div>
+</div>
+
+<div class="jumbotron comunidade">
+  <div class="container text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+      <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+      <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2"/>
+    </svg>
+    <h2 class="title">Comunidade</h2>
+    <p class="lead">Participe da comunidade e publique as suas sugestôes na sessão de comentários:</p>
+    <p><a class="btn btn-outline-primary" href="#" role="button">Inscreva-se</a></p>
+  </div>
+</div>
+
 {% endblock %}

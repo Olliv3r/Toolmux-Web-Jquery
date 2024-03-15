@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="pt-br">
+  {% from 'bootstrap4/utils.html' import render_static %}
+  <head>
+    <title>Painel de Controle</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {{ render_static('css', 'css/bootstrap.min.css') }}
+    {{ render_static('css', 'css/fontawesome.min.css') }}
+    {{ render_static('css', 'css/dashboard.css') }}
+    {% block head %} {{ bootstrap.load_css() }} {% endblock %}
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand navbar-dark bg-primary">
+        <a class="sidebar-toggle text-black mr-3">
+          <span class="navbar-toggler-icon"></span>
+        </a>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">Toolmux</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle menu-header" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
+                <img class="rounded-circle" src="{{ current_user.profile_image_url }}" width="20" height="20"/>
+                &nbsp;<span class="d-none d-sm-inline">Usuário</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="{{ url_for('main.profile') }}"><i class="fas fa-user"></i> Peril</a>
+                <a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Sair</a>
+              </div>
+            </li>
+            
+          </ul>
+        
+        </div>
+      </nav>
+    </header>
+
+    <div class="d-flex">
+      <nav class="sidebar">
+        <ul class="list-unstyled">
+          <li>
+            <a href="#" data-dashboard><i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard</a>
+          </li>
+          <li>
+            <a href="#submenu1" data-toggle="collapse"><i class="fas fa-user"></i>&nbsp;&nbsp;Usuário
+            </a>
+            
+            <ul id="submenu1" class="list-unstyled collapse">
+              <li><a href="#" data-user><i class="fas fa-users"></i>&nbsp;Usuários</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#submenu2" data-toggle='collapse'><i class="fas fa-list"></i>&nbsp;&nbsp;Menu
+            </a>
+            
+            <ul id="submenu2" class="list-unstyled collapse">
+              <li>
+                <a href="#" data-tool><i class="fas fa-tools"></i>&nbsp;Ferramentas
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> Sair</a>
+          </li>
+        </ul>
+      </nav>
+    
+      <div class="content p-1" style="overflow:hidden;">
+        <div class="list-group-item">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="mr-auto p-2">
+              <h2 class="title"></h2>
+            </div>
+            <button data-btn-add-user data-action-button role="button" class="btn btn-primary" data-toggle="modal" data-target="">Adicionar</button>
+          </div>
+          <p id="message"></p>
+          <div class="row mb-3 text-center" id="dashboard-content"></div>
+        </div>
+      </div>
+    </div>
+    
+        
+    <!-- Modal adiciona usuário -->
+    <div class="modal fade" id="modalAddUser" tabindex="-1" aria-labelledby="modalAddLabelUser" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalAddLabelUser">Adicionar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          
+          <div class="modal-body">
+            <form id="add-user-form" method="post">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                <input type="text" class="form-control field" name="username" id="username" required>
+                <p id="message_username"></p>
+              </div>
+    
+              <div class="mb-3">
+                <label for="email" class="form-label">E-mail <span class="text-danger">*</span></label>
+                <input type="email" class="form-control field" name="email" id="email" required>
+                <p id="message_email"></p>
+              </div>
+    
+              <div class="mb-3 form-group">
+                <label for="password" class="form-label">Senha <span class="text-danger">*</span></label>
+                <input type="password" class="form-control field" name="password" id="password" required>
+              </div>
+    
+              <div class="mb-3 form-group">
+                <label for="password2" class="form-label">Confirme a senha <span class="text-danger">*</span></label>
+                <input type="password" class="form-control field" name="password2" id="password2" required>
+                <p id="message_password"></p>
+              </div>
+              
+              <div class="mb-3 form-group">
+          		  <label for="situationuser" class="form-label">Situação</label>
+          		  <select class="form-control situationsusers" aria-label="Situaçôes" name="situationuser" id="situationuser" required></select>
+          		</div>
+          		
+              <div class="mb-3 form-group">
+          		  <label for="role" class="form-label">Papel</label>
+          		  <select class="form-control roles" aria-label="Papel" name="role" id="role" required></select>
+          		</div>
+          		
+          		<div class="mb-3 custom-control custom-switch">
+                <input class="custom-control-input" type="checkbox" id="confirmed" name="confirmed" checked>
+                <label class="custom-control-label" for="confirmed">Confirmar conta</label>
+              </div>
+            </form>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button form="add-user-form" type="submit" data-btn-add class="btn btn-success">Adicionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal visualiza usuário -->
+    <div class="modal fade" id="modalViewUser" tabindex="-1" aria-labelledby="modalViewLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalViewLabel">Visualizar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal edita usuário -->
+    <div class="modal fade" id="modalEditUser" tabindex="-1" aria-labelledby="modalEditLabelUser" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalEditLabelUser">Editar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          
+          <div class="modal-body">
+            <form id="edit-user-form" method="post">
+              <div class="mb-3 form-group">
+                <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                <input type="text" class="form-control field" name="username" id="username" required>
+              </div>
+    
+              <div class="mb-3 form-group">
+                <label for="email" class="form-label">E-mail <span class="text-danger">*</span></label>
+                <input type="email" class="form-control field" name="email" id="email" required>
+              </div>
+              
+              <div class="mb-3 form-group">
+          		  <label for="situationuser" class="form-label">Situação</label>
+          		  <select class="form-control situationsusers" aria-label="Situaçôes" name="situationuser" id="situationuser">
+          		  </select>
+          		</div>
+          		
+              <div class="mb-3 form-group">
+          		  <label for="role" class="form-label">Papel</label>
+          		  <select class="form-control roles" aria-label="Papel" name="role" id="role">
+          		  </select>
+          		</div>
+          	
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="confirmed" name="confirmed">
+                <label class="form-check-label" for="confirmed">Confirmar conta</label>
+              </div>
+            </form>
+          </div>
+                  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button data-btn-edit type="submit" class="btn btn-warning" form="edit-user-form">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal deleta usuário -->
+    <div class="modal fade" id="modalDeleteUser" tabindex="-1" aria-labelledby="modalDeleteLabelUser" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalDeleteLabelUser">Apagar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          
+          <div class="modal-body">
+            Tem certeza de que deseja apagar este ítem?
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button data-btn-delete type="button" class="btn btn-primary">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal adiciona ferramenta -->
+    <div class="modal fade" id="modalAddTool" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalAddLabel">Adicionar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          
+          <div class="modal-body">
+            <form id="add-tool-form" method="post">
+              <div class="row">
+              	<div class="col-6 mb-3">
+                  <label for="name" class="form-label">Nome <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control field" name="name" id="name" required>
+                </div>
+                
+                <div class="col-6 mb-3">
+                  <label for="author" class="form-label">Autor <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control field" name="author" id="author" required>
+                </div>
+    
+                <div class="col-6 mb-3">
+                  <label for="alias" class="form-label">Apelido <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control field" name="alias" id="alias" required>
+                </div>
+                	
+                <div class="col-6 mb-3">
+                  <label for="executable" class="form-label">Executável</label>
+                  <input type="text" class="form-control" name="executable">
+                </div>
+                	
+                <div class="col-4 mb-3">
+                  <label for="name_repo" class="form-label">Repositório</label>
+                  <input type="text" class="form-control" name="name_repo" id="name_repo">
+                </div>
+      
+                <div class="col-8 mb-3">
+                  <label for="dependencies" class="form-label">Dependências</label>
+                  <input type="text" class="form-control" name="dependencies">
+                </div>
+      
+                <div class="col-12 mb-3">
+                  <label for="link" class="form-label">Link</label>
+                  <input type="text" class="form-control" name="link" id="link">
+                </div>
+    
+        		    <div class="col-12 mb-3">
+        		      <label for="installation_type" class="form-label">Instalação via</label>
+        		      <select class="form-control installation_types" aria-label="Tipos instalação" name="installation_type_id" id="installation_type_id" required>
+        		      </select>
+        		    </div>
+          		    
+        		    <div class="col-12 mb-3">
+        		      <label for="category" class="form-label">Categoria</label>
+        		      <select class="form-control categories" aria-label="Categorias" name="category_id" id="category_id" required>
+        		      </select>
+        		    </div>
+    
+        			  <div class="col-12 mb-3">
+        		      <label for="situation" class="form-label">Situação</label>
+        		      <select class="form-control situations" aria-label="Situaçôes" name="situation_id" id="situation_id" required>
+        		      </select>
+        		    </div>
+          
+        		    <div class="col-12 mb-3">
+        		      <label for="installation_tip" class="form-label">Dica</label>
+        		      <input type="text" class="form-control" name="installation_tip">
+        		    </div>
+          
+        		    <div class="col-12 mb-3">
+        		      <label for="description" class="form-label">Descrição</label>
+        		      <textarea class="form-control" name="description"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button data-btn-add type="submit" class="btn btn-success" form="add-tool-form">Adicionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal visualiza ferramenta -->
+    <div class="modal fade" id="modalViewTool" tabindex="-1" aria-labelledby="modalViewToolLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalViewToolLabel">Visualizar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal edita ferramenta -->
+    <div class="modal fade" id="modalEditTool" tabindex="-1" aria-labelledby="modalEditToolLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalEditToolLabel">Editar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          
+          <div class="modal-body">
+            <form id="edit-tool-form" method="post">
+              <div class="row">
+              	<div class="col-6 mb-3">
+                  <label for="name" class="form-label">Nome <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control field" name="name" id="name" required>
+                </div>
+    
+                <div class="col-6 mb-3">
+                  <label for="author" class="form-label">Autor <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control field" name="author" id="author" required>
+                </div>
+    
+                <div class="col-6 mb-3">
+                  <label for="alias" class="form-label">Apelido <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control field" name="alias" id="alias" required>
+                </div>
+                	
+                <div class="col-6 mb-3">
+                  <label for="executable" class="form-label">Executável</label>
+                  <input type="text" class="form-control" name="executable" id="executable">
+                </div>
+                	
+                <div class="col-4 mb-3">
+                  <label for="name_repo" class="form-label">Repositório</label>
+                  <input type="text" class="form-control" name="name_repo" id="name_repo">
+                </div>
+      
+                <div class="col-8 mb-3">
+                  <label for="dependencies" class="form-label">Dependências</label>
+                  <input type="text" class="form-control" name="dependencies" id="dependencies">
+                </div>
+      
+                <div class="col-12 mb-3">
+                  <label for="link" class="form-label">Link</label>
+                  <input type="text" class="form-control" name="link" id="link">
+                </div>
+    
+        		    <div class="col-12 mb-3">
+        		      <label for="installation_type" class="form-label">Instalação via</label>
+        		      <select class="form-control installation_types" aria-label="Tipos instalação" name="installation_type_id" id="installation_type_id" required>
+        		      </select>
+                </div>
+        		    
+        		    <div class="col-12 mb-3">
+        		      <label for="category" class="form-label">Categoria</label>
+        		      <select class="form-control categories" aria-label="Categorias" name="category_id" id="category_id" required>
+        		      </select>
+                </div>
+    
+          		  <div class="col-12 mb-3">
+            		  <label for="situation" class="form-label">Situação</label>
+            		  <select class="form-control situations" aria-label="Situaçôes" name="situation_id" id="situation_id" required>
+            		  </select>
+          	   </div>
+        
+        		    <div class="col-12 mb-3">
+        		      <label for="installation_tip" class="form-label">Dica</label>
+        		      <input type="text" class="form-control" name="installation_tip" id="installation_tip">
+        		    </div>
+        
+        		    <div class="col-12 mb-3">
+        		      <label for="description" class="form-label">Descrição</label>
+        		      <textarea class="form-control" name="description" id="description"></textarea>
+        		    </div>
+              </div>
+            </form>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button data-btn-edit type="submit" class="btn btn-warning" form="edit-tool-form">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal deleta ferramenta -->
+    <div class="modal fade" id="modalDeleteTool" tabindex="-1" aria-labelledby="modalDeleteToolLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title fs-5" id="modalDeleteToolLabel">Apagar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          </div>
+          
+          <div class="modal-body">
+            Tem certeza de que deseja apagar este ítem?
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button data-btn-delete type="button" class="btn btn-primary">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% block scripts %}
+      {{ bootstrap.load_js() }}
+      {{ moment.include_moment() }}
+      {{ moment.locale("pt") }}
+    {% endblock %}
+  
+    {{ render_static('js', 'js/all.min.js') }}
+    {{ render_static('js', 'js/dashboard.js') }}
+    {{ render_static('js', 'js/eruda.js') }}
+    <script>eruda.init();</script>
+  </body>
+</html>

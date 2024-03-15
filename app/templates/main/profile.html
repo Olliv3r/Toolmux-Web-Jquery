@@ -1,0 +1,13 @@
+{% from 'bootstrap4/utils.html' import render_static %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="profile container">
+  <p id="message"></p>
+  <div id="profile"></div>
+  <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}"/>
+</div>
+{% endblock %}
+
+{% block custom_scripts %}
+  {{ render_static('js', 'js/profile.js') }}
+{% endblock %}

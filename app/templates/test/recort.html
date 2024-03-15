@@ -1,0 +1,12 @@
+{% from 'bootstrap4/utils.html' import render_static %}
+{% extends 'base.html' %}
+
+{% block content %}
+  <input type="file" id="cropbox">
+  <div id="crop_preview"></div>
+
+{% endblock %}
+
+{% block custom_scripts %}
+  {{ render_static('js', 'js/test.js') }}
+{% endblock %}

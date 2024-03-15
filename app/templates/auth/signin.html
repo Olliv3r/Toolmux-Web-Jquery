@@ -1,0 +1,43 @@
+{% from 'bootstrap4/utils.html' import render_static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon"/>
+    {{ render_static('css', 'css/login.css') }}
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Acesso</h2>
+      <p>Digite seus dados de acesso nos campos abaixo.</p>
+      
+      <form id="form-login" action="{{ url_for('auth.signin') }}" method="POST">
+        <div class="form-groupp">
+          <label for="username">Usuário</label>
+          <input type="text" name="username" id="username" placeholder="Digite seu usuário" required/>
+        </div>
+        
+        <div class="form-groupp">
+          <label for="password">Senha</label>
+          <input type="password" name="password" id="password" placeholder="Digite sua senha" required/>
+        </div>
+        
+        <a href="{{ url_for('auth.reset_password_request') }}">Esqueci minha senha</a>
+        
+        <div class="form-groupp">
+          <input type="checkbox" name="remember_me" id="remember_me"/>
+          <label for="remember_me">Lembrar-me</label>
+        </div>
+      
+        <button type="submit">Acessar</button>
+      </form>
+  
+      <p>Ainda não tem conta? <a href="{{ url_for('auth.signup') }}">criar</a></p>
+      
+      {% include 'messages.html' %}
+    </div>
+  </body>
+</html>

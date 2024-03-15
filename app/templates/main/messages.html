@@ -1,0 +1,55 @@
+{% from 'bootstrap4/form.html' import render_form %}
+{% from 'bootstrap4/utils.html' import render_static %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  {% if messages %}
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="card shadow-sm rounded bg-white mb-3">
+        <div class="card-title border-bottom p-3">
+          <h6 class="m-0">Mensagens</h6>
+        </div>
+        <div class="card-body p-0">
+          {% for message in messages %}
+          <a class="author-link" href="{{ url_for('main.user', username=message.message_author.username) }}">
+            <div class="d-flex justify-content-between p-1">
+              <div class="media">
+                <img class="mr-3 align-self-center author-image" src="{{ message.message_author.profile_image_url }}"/>
+                <div class="media-body">
+                  <h5 class="mt-0 author-title">{{ message.message_author.name }}</h5>
+                  <p class="author-text">{{ message.body }}</p>
+                </div>
+              </div>
+              <div>
+                <p class="author-date-text">{{ moment(message.timestamp).fromNow() }}</p>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p class="alert alert-light">Sem mensagens no momento</p>
+  {% endif %}
+
+  {% if prev_url or next_url %}
+  <nav aria-label="Page navigation" class="text-end mt-3 pagination-messages">
+    <ul class="pagination pagination-sm justify-content-end">
+      <li class="page-item {% if not prev_url %}disabled{% endif %}">
+        <a class="page-link" href="{{ prev_url }}" role="button">Anterior</a>
+      </li>
+      <li class="page-item {% if not next_url %}disabled{% endif %}">
+        <a class="page-link" href="{{ next_url }}" role="button">Próxima</a>
+      </li>
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block custom_css %}
+  {{ render_static('css', 'css/notification.css') }}
+{% endblock %}

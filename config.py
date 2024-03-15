@@ -1,17 +1,26 @@
-from os import environ, path
+from os import getenv, path
+from dotenv import load_dotenv
 
 basedir = path.abspath(path.dirname(__file__))
 
 class Config:
-  SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI') or 'sqlite:///' + path.join(basedir, 'toolmux.db')
-  #SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI') or 'mysql+pymysql://root:toor@127.0.0.1/toolmux'
+  load_dotenv()
+  SQLALCHEMY_DATABASE_URI = 'sqlite:///' + path.join(basedir, 'toolmux.db')
+  #SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{getenv('MYSQL_USER')}:{getenv('MYSQL_PASSWORD')}@{getenv('MYSQL_HOST')}/{getenv('MYSQL_DB')}"
   SQLALCHEMY_TRACK_MODIFICATIONS = False
-  SECRET_KEY = "toolmux.?!@8268377#"
-  PER_PAGE_TOOLS = 5
+  SECRET_KEY = getenv("SECRET_KEY")
+  PER_PAGE_TOOLS = 10
+  PER_PAGE_USERS = 10
+  PER_PAGE_COMMENTS = 10
+  PER_PAGE_MESSAGES = 10
   confirm_deleted_rows = False
-
-  # MYSQL_HOST = environ.get('MYSQL_HOST') or '127.0.0.1'
-  # MYSQL_USER = environ.get('MYSQL_USER') or 'root'
-  # MYSQL_PASSWORD = environ.get('MYSQL_PASSWORD') or 'toor'
-  # MYSQL_DB = environ.get('MYSQL_DB') or 'tools'
-  
+  TOOLMUX_ADMIN = 'toolmux1@gmail.com'
+  MAIL_SERVER = getenv('MAIL_SERVER')
+  MAIL_PORT = int(getenv('MAIL_PORT'))
+  MAIL_USE_TLS = getenv('MAIL_USE_TLS')
+  MAIL_USERNAME = getenv('MAIL_USERNAME')
+  MAIL_PASSWORD = getenv('MAIL_PASSWORD')
+  ADMINS = ['toolmux1@gmail.com']
+  MAX_CONTENT_LENGTH = 1024 * 1024
+  UPLOAD_EXTENSIONS = ['.jpg', '.png', '.gif']
+  UPLOAD_PATH = 'app/static/images/avatars'

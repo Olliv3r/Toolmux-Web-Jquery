@@ -1,0 +1,96 @@
+{% from 'bootstrap4/form.html' import render_form %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="user container">
+  <p id="message"></p>
+  <div id="user-other"></div>
+  <input type="hidden" name="username" id="username" value="{{ user.username }}"/>
+  <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}"/>
+</div>
+
+<!-- Modal message-->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-5" id="messageModalLabel">Enviar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="send-message-form" method="post">
+          <div class="mb-3">
+            <label for="message" class="form-label">Mensagem</label>
+            <input type="hidden" name="recipient" id="recipient" value="{{ user.username }}"/>
+            <textarea class="form-control field" name="message" id="message" placeholder="Mensagem aqui"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn-message btn btn-warning">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal edit user other -->
+<div class="modal fade" id="editUserOtherModal" tabindex="-1" aria-labelledby="editUserOtherModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editUserOtherModalLabel">Editar</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-user-other-form" method="post">
+          <input type="hidden" id="user_username" value="{{ user.username }}"/>
+          <div class="mb-3">
+            <label for="username" class="form-label">Usuário</label>
+            <input type="text" class="form-control field" name="username" id="username" value="{{ user.username }}">
+          </div>
+          
+          <div class="mb-3">
+            <label for="name" class="form-label">Nome completo</label>
+            <input type="text" class="form-control field" name="name" id="name" value="{{ user.name }}">
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" class="form-control field" name="email" id="email" value="{{ user.email }}">
+          </div>
+          
+          <div class="mb-3">
+            <label for="address" class="form-label">Endereço</label>
+            <input type="text" class="form-control field" name="address" id="address" value="{{ user.address }}">
+          </div>
+          
+          <div class="mb-3">
+            <label for="website" class="form-label">Website</label>
+            <input type="url" class="form-control field" name="website" id="website" value="{{ user.website }}">
+          </div>
+          
+          <div class="mb-3">
+            <label for="github" class="form-label">Github</label>
+            <input type="url" class="form-control field" name="github" id="github" value="{{ user.github }}">
+          </div>
+          
+          <div class="mb-3">
+            <label for="profission" class="form-label">Profissão</label>
+            <input type="text" class="form-control field" name="profission" id="profission" value="{{ user.profission }}">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn-edit-user-other btn btn-warning">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block custom_scripts %}
+  {{ render_static('js', 'js/user_other.js') }}
+{% endblock %}

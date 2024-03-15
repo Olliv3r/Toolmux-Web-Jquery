@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2>Proibido</h2>
+  <p class="lead">Você não tem permissão para acessar o recurso solicitado. Ele é protegido contra leitura ou não é legível pelo servidor.!</p>
+  <a class="btn btn-primary" role="button" href="{{ url_for('main.index') }}">Ir a tela inicial</a>
+</div>
+{% endblock %}

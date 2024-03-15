@@ -1,0 +1,60 @@
+<div class="container">
+  {% if tools %}
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Autor</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tool in tools %}
+      <tr>
+        <td>{{ tool.id }}</td>
+        <td>{{ tool.name }}</td>
+        <td>{{ tool.tool_author.name }}</td>
+        <td>
+          <div class="dropdown d-md-none">
+            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Ação
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" role="button" data-view-tool-id='{{ tool.id }}' data-toggle="modal" data-target="#modalViewTool">Visualizar</a>
+              </li>
+              <li>
+                <a class="dropdown-item" role="button" data-edit-tool-id='{{ tool.id }}' data-toggle="modal" data-target="#modalEditTool">Editar
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" role="button" data-delete-tool-id='{{ tool.id }}' data-toggle="modal" data-target="#modalDeleteTool">Apagar</a>
+                </li>
+            </ul>
+          </div>
+  
+    	    <div class="d-none d-md-block">
+            <a class="btn btn-sm btn-outline-primary" role="button" data-view-tool-id='{{ tool.id }}' data-toggle="modal" data-target="#modalViewTool">Visualizar</a>
+    	      <a class="btn btn-sm btn-outline-warning" role="button" data-update-tool-id='{{ tool.id }}' data-toggle="modal" data-target="#modalEditTool">Atualizar</a>
+    	      <a class="btn btn-sm btn-outline-danger" role="button" data-delete-tool-id='{{ tool.id }}' data-toggle="modal" data-target="#modalDeleteTool">Apagar</a>
+    	    </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    
+  <nav aria-label="pagination-tools">
+    <ul class="pagination pagination-sm justify-content-around">
+      <li class="page-item{% if not prev_url %} disabled{% endif %}">
+        <a class="page-link" role="button" data-page-prev-tool='{{ prev_url }}'>Anterior</a>
+      </li>
+      <li class="page-item{% if not next_url %} disabled{% endif %}">
+        <a class="page-link" role="button" data-page-next-tool='{{ next_url }}'>Próxima</a>
+      </li>
+    </ul>
+  </nav>
+  {% else %}
+  <p class="light">Nenhuma ferramenta</p>
+  {% endif %}
+</div>

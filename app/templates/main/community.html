@@ -1,0 +1,70 @@
+{% from 'bootstrap4/form.html' import render_form %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2 class="mb-3 title">Comunidade</h2>
+  
+  <div id="message"></div>
+  {% if current_user.is_authenticated %}
+  <form action="" id="add-comment-form">
+    <div class="mb-3">
+      <textarea class="form-control field" name="comment" id="comment" rows="3" placeholder="Deixe sua sugestão..." max="300"></textarea>
+    </div>
+    <div class="mb-3">
+      <button class="btn-comment-add btn btn-sm btn-danger" data-commend-add>Publicar</button>
+    </div>
+  </form>
+  {% else %}
+  <p class="col-lg-8 mx-auto lead">
+    Participe da comunidade e publique as suas sugestôes:
+  </p>
+  <a href="{{ url_for('auth.signup') }}" class="btn btn-primary btn-sm">Inscreva-se</a>
+  {% endif %}
+  
+  <div id="comments"></div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fs-5" id="editModalLabel">Editar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-warning btn-comment-edit">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal apagar -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fs-5" id="deleteModalLabel">Apagar ítem</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja apagar este ítem?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-warning btn-comment-delete">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block custom_scripts %}
+  {{ render_static('js', 'js/comment.js') }}
+{% endblock %}

@@ -1,0 +1,25 @@
+
+.author-image {
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
+}
+.author-title {
+  font-weight: 600;
+  color: #62748F;
+}
+.author-text {
+  font-size: 15px;
+}
+.author-date-text {
+  font-size: 12px;
+}
+.author-link {
+  text-decoration: none;
+  color: #000;
+}
+.author-link:hover,
+.author-link:visited{
+  text-decoration: none;
+  color: #000;
+}

@@ -1,0 +1,90 @@
+<div class="main-body">
+  <!-- /Breadcrumb -->
+  <div class="row gutters-sm">
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-column align-items-center text-center personal-image">
+            <figure class="personal-figure">
+              <img src="{{ user.profile_image_url }}" alt="Foto de perfil do usuário" class="rounded-circle personal-avatar" width="150">
+            </figure>
+                        
+            <div class="mt-3">
+              <h4>{% if user.name %}{{ user.name }}{% endif %}</h4>
+              <p class="text-secondary mb-1">{% if user.profission %}{{ user.profission }}{% endif %}</p>
+              
+              {% if current_user != user %}
+              <a role="button" class="btn btn-primary disabled">Follow</a>
+              <button role="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#messageModal">Message</button>
+              {% endif %}
+              {% if current_user == user %}
+              <a role="button" class="btn btn-primary" href="{{ url_for('main.profile') }}">Editar</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mt-3">
+        <ul class="list-group list-group-flush">
+          {% if user.website %}
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <div class="mb-0">
+              <img src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white">
+            </div>
+            <span class="text-secondary">{{ user.website }}</span>
+          </li>
+          {% endif %}
+          {% if user.github %}
+          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <div class="mb-0">
+              <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
+            </div>
+            <span class="text-secondary">{{ user.github }}</span>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          {% if user.name %}
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Nome</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              {{ user.name }}
+            </div>
+          </div>
+          <hr>
+          {% endif %}
+          {% if user.address %}
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Endereço</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              {{ user.address }}
+            </div>
+          </div>
+          <hr>
+          {% endif %}
+          {% if user.profission %}
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Profissão</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              {{ user.profission }}
+            </div>
+          </div>
+          <hr>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
